@@ -916,7 +916,8 @@ impl<O, H> OwningHandle<O, H>
     {
         let h: H;
         {
-            h = f(o.deref() as *const O::Target).await;
+            let r = f(o.deref() as *const O::Target);
+            h = r.await;
         }
 
         OwningHandle {
@@ -954,7 +955,8 @@ impl<O, H> OwningHandle<O, H>
     {
         let h: H;
         {
-            h = f(o.deref() as *const O::Target).await?;
+            let r = f(o.deref() as *const O::Target);
+            h = r.await?;
         }
 
         Ok(OwningHandle {
